@@ -1,22 +1,3 @@
 {
-  "tasks": [
-    {
-      "id": 1,
-      "text": "Ir al odontologo",
-      "day": "Hoy",
-      "reminder": false
-    },
-    {
-      "id": 3,
-      "text": "Ir a andar en bicicleta",
-      "day": "Jueves",
-      "reminder": true
-    },
-    {
-      "text": "Ir a ver a mi abuela hermosa",
-      "day": "Toda la vida",
-      "reminder": true,
-      "id": 4
-    }
-  ]
+  "tasks": []
 }

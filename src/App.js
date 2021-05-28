@@ -1,13 +1,15 @@
-import { Header } from "./components/Header";
-import { Tasks } from "./components/Tasks";
-import { AddTask } from "./components/AddTask";
 import {useState, useEffect} from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { Header } from "./components/Header";
+import Footer from "./components/Footer";
+import { Tasks } from "./components/Tasks";
+import AddTask from "./components/AddTask";
+import About from "./components/About";
 
-//1:16:32
 
 function App() {
 
-  const [showAddTask, setShowAddTask] = useState(true)
+  const [showAddTask, setShowAddTask] = useState(false)
 
   const [tasks, setTasks] = useState([])
 
@@ -85,32 +87,50 @@ function App() {
     setTasks(
       tasks.map((task) => 
         task.id === id ? 
-        { ...task,  reminder: !data.reminder } : task
+        { ...task,  reminder: data.reminder } : task
       ))
   }
 
 
   return (
-    <div className="container">
-      <Header
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={ showAddTask } 
-          
-      />
+    <Router>
+      <div className="container">
+        <Header
+          onAdd={() => setShowAddTask(!showAddTask)}
+          showAdd={ showAddTask } 
+            
+        />
 
-      {showAddTask && <AddTask onAdd={addTask} />}
+        <Route
+          path='/' 
+          exact 
+          render = {(props) => (
+            <>
+              
+              {showAddTask && <AddTask onAdd={addTask} />}
 
-      {
-        tasks.length > 0 ? (
-          <Tasks 
-            tasks={tasks}
-            onDelete={deleteTask}
-            onToggle={toggleReminder}
-          />)
-          : 'No task to show'
-      }
-      
-    </div>
+              {
+                tasks.length > 0 ? (
+                  <Tasks 
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                  />)
+                  : 'No task to show'
+              }
+
+            </>
+          )
+        }
+        
+        />
+
+
+        <Route path='/about' component={About} />
+        <Footer /> 
+
+      </div>
+    </Router>
   );
 }
 
